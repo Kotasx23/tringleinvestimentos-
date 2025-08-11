@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum StrategyType {
+  LONG_ONLY
+  SHORT_ONLY
+  LONG_SHORT
+  MARKET_NEUTRAL
+}
+
+enum StrategyStatus {
+  DRAFT
+  LIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum OrderSide {
+  BUY
+  SELL
+}
+
+enum OrderType {
+  MARKET
+  LIMIT
+}
+
+// Models
+model User {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  name          String?
+  passwordHash  String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  portfolios    Portfolio[]
+  strategies    Strategy[]
+  apiKeys       ApiKey[]
+}
+
+model ApiKey {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  name       String
+  keyHash    String
+  createdAt  DateTime @default(now())
+  lastUsedAt DateTime?
+}
+
+model Strategy {
+  id            String         @id @default(cuid())
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  name          String
+  description   String?
+  type          StrategyType   @default(LONG_ONLY)
+  status        StrategyStatus  @default(DRAFT)
+  parameters    Json
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  backtests     Backtest[]
+  trades        Trade[]
+  portfolios    PortfolioStrategy[]
+}
+
+model Portfolio {
+  id            String                @id @default(cuid())
+  user          User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  name          String
+  baseCurrency  String                @default("USD")
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  balance       Float                 @default(0)
+  positions     Position[]
+  trades        Trade[]
+  strategies    PortfolioStrategy[]
+}
+
+model PortfolioStrategy {
+  id           String    @id @default(cuid())
+  portfolio    Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId  String
+  strategy     Strategy  @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+  strategyId   String
+  allocation   Float     @default(1.0) // 0..1
+  createdAt    DateTime  @default(now())
+}
+
+model Position {
+  id           String    @id @default(cuid())
+  portfolio    Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId  String
+  symbol       String
+  quantity     Float     @default(0)
+  avgPrice     Float     @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Trade {
+  id            String     @id @default(cuid())
+  portfolio     Portfolio  @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId   String
+  strategy      Strategy?  @relation(fields: [strategyId], references: [id])
+  strategyId    String?
+  symbol        String
+  side          OrderSide
+  type          OrderType  @default(MARKET)
+  quantity      Float
+  price         Float
+  executedAt    DateTime   @default(now())
+}
+
+model Backtest {
+  id            String     @id @default(cuid())
+  strategy      Strategy   @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+  strategyId    String
+  from          DateTime
+  to            DateTime
+  initialCash   Float      @default(10000)
+  finalCash     Float
+  trades        Json       // compact trades for report
+  metrics       Json       // e.g., sharpe, drawdown, winRate
+  createdAt     DateTime   @default(now())
+}
