@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora PWA simples e funcional">
+    <meta name="theme-color" content="#2196F3">
+    <title>Calculadora PWA</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Calculadora PWA</h1>
+            <div class="status-bar">
+                <span id="connection-status">Online</span>
+            </div>
+        </header>
+        
+        <main class="calculator-container">
+            <div class="calculator">
+                <div class="display">
+                    <div class="previous-operand" id="previous-operand"></div>
+                    <div class="current-operand" id="current-operand">0</div>
+                </div>
+                
+                <div class="buttons">
+                    <button class="btn btn-clear" data-action="clear">AC</button>
+                    <button class="btn btn-delete" data-action="delete">DEL</button>
+                    <button class="btn btn-operator" data-action="operator" data-value="%">%</button>
+                    <button class="btn btn-operator" data-action="operator" data-value="/">÷</button>
+                    
+                    <button class="btn btn-number" data-action="number" data-value="7">7</button>
+                    <button class="btn btn-number" data-action="number" data-value="8">8</button>
+                    <button class="btn btn-number" data-action="number" data-value="9">9</button>
+                    <button class="btn btn-operator" data-action="operator" data-value="*">×</button>
+                    
+                    <button class="btn btn-number" data-action="number" data-value="4">4</button>
+                    <button class="btn btn-number" data-action="number" data-value="5">5</button>
+                    <button class="btn btn-number" data-action="number" data-value="6">6</button>
+                    <button class="btn btn-operator" data-action="operator" data-value="-">-</button>
+                    
+                    <button class="btn btn-number" data-action="number" data-value="1">1</button>
+                    <button class="btn btn-number" data-action="number" data-value="2">2</button>
+                    <button class="btn btn-number" data-action="number" data-value="3">3</button>
+                    <button class="btn btn-operator" data-action="operator" data-value="+">+</button>
+                    
+                    <button class="btn btn-number btn-zero" data-action="number" data-value="0">0</button>
+                    <button class="btn btn-number" data-action="number" data-value=".">.</button>
+                    <button class="btn btn-equals" data-action="equals">=</button>
+                </div>
+            </div>
+        </main>
+        
+        <div class="install-prompt" id="install-prompt" style="display: none;">
+            <p>Instale este app para uma melhor experiência!</p>
+            <button id="install-btn" class="btn btn-install">Instalar</button>
+            <button id="dismiss-btn" class="btn btn-dismiss">Agora não</button>
+        </div>
+    </div>
+    
+    <!-- Service Worker -->
+    <script src="app.js"></script>
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

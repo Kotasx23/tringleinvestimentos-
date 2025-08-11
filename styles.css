@@ -1,0 +1,310 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2196F3;
+    --secondary-color: #1976D2;
+    --background-color: #121212;
+    --surface-color: #1E1E1E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B3B3B3;
+    --button-bg: #2D2D2D;
+    --button-hover: #3D3D3D;
+    --operator-bg: #FF9800;
+    --operator-hover: #F57C00;
+    --equals-bg: #4CAF50;
+    --equals-hover: #388E3C;
+    --clear-bg: #F44336;
+    --clear-hover: #D32F2F;
+    --delete-bg: #9C27B0;
+    --delete-hover: #7B1FA2;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--background-color), #1a1a1a);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.app-header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.app-header h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, var(--primary-color), #64B5F6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.status-bar {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+#connection-status {
+    padding: 4px 12px;
+    background: rgba(76, 175, 80, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.calculator-container {
+    display: flex;
+    justify-content: center;
+}
+
+.calculator {
+    background: var(--surface-color);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 350px;
+}
+
+.display {
+    background: var(--background-color);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.previous-operand {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    min-height: 1.5rem;
+}
+
+.current-operand {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--button-bg);
+    color: var(--text-primary);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-number {
+    background: var(--button-bg);
+}
+
+.btn-number:hover {
+    background: var(--button-hover);
+}
+
+.btn-operator {
+    background: var(--operator-bg);
+    color: white;
+}
+
+.btn-operator:hover {
+    background: var(--operator-hover);
+}
+
+.btn-equals {
+    background: var(--equals-bg);
+    color: white;
+}
+
+.btn-equals:hover {
+    background: var(--equals-hover);
+}
+
+.btn-clear {
+    background: var(--clear-bg);
+    color: white;
+}
+
+.btn-clear:hover {
+    background: var(--clear-hover);
+}
+
+.btn-delete {
+    background: var(--delete-bg);
+    color: white;
+}
+
+.btn-delete:hover {
+    background: var(--delete-hover);
+}
+
+.btn-zero {
+    grid-column: span 2;
+}
+
+.install-prompt {
+    background: var(--surface-color);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+.install-prompt p {
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+.btn-install {
+    background: var(--primary-color);
+    color: white;
+    margin-right: 10px;
+}
+
+.btn-install:hover {
+    background: var(--secondary-color);
+}
+
+.btn-dismiss {
+    background: var(--button-bg);
+    color: var(--text-secondary);
+}
+
+.btn-dismiss:hover {
+    background: var(--button-hover);
+    color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .calculator {
+        padding: 15px;
+    }
+    
+    .btn {
+        padding: 15px;
+        font-size: 1.3rem;
+    }
+    
+    .current-operand {
+        font-size: 2rem;
+    }
+    
+    .app-header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .btn {
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+    
+    .buttons {
+        gap: 8px;
+    }
+    
+    .calculator {
+        padding: 12px;
+    }
+}
+
+/* Animation for number changes */
+.current-operand {
+    transition: all 0.2s ease;
+}
+
+.current-operand.changed {
+    transform: scale(1.05);
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pulse 1s infinite;
+}
+
+/* Offline indicator */
+.offline {
+    background: rgba(244, 67, 54, 0.2) !important;
+    border-color: rgba(244, 67, 54, 0.3) !important;
+    color: #F44336 !important;
+}
