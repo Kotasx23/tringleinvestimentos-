@@ -1,7 +1,9 @@
 // Endpoint para verificar status do pagamento
+// Vercel Serverless Function
+
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || 'APP_USR-8710234293112553-080912-777211fa3e9fef6e71f3a329ea20b02a-500234387'
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   // Configurar CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
