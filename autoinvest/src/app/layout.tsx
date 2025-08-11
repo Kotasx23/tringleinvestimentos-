@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
+import { getAuth } from "@/lib/auth";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,6 +21,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const auth = getAuth();
+
   return (
     <html lang="pt-BR">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -31,7 +34,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/strategies">Estratégias</Link>
               <Link href="/portfolios">Portfólios</Link>
               <Link href="/backtests">Backtests</Link>
-              <Link href="/login" className="ml-auto">Entrar</Link>
+              {auth ? (
+                <form action="/api/auth/logout" method="post" className="ml-auto">
+                  <button type="submit">Sair</button>
+                </form>
+              ) : (
+                <Link href="/login" className="ml-auto">Entrar</Link>
+              )}
             </div>
           </nav>
         </header>
