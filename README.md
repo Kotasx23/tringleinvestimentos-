@@ -5,11 +5,13 @@ Uma calculadora simples e funcional desenvolvida como Progressive Web App (PWA) 
 ## 🚀 Características
 
 - **Design Moderno**: Interface limpa e responsiva com tema escuro
+- **Menu Lateral**: Menu completo com opções de instalação, configurações e ajuda
 - **Funcionalidades PWA**: 
   - Instalável como app nativo
   - Funciona offline
   - Cache inteligente
   - Notificações push
+  - Instruções de instalação específicas por plataforma
 - **Calculadora Completa**: 
   - Operações básicas (+, -, ×, ÷)
   - Operação de módulo (%)
@@ -18,22 +20,36 @@ Uma calculadora simples e funcional desenvolvida como Progressive Web App (PWA) 
 - **Responsivo**: Funciona perfeitamente em desktop, tablet e mobile
 - **Acessibilidade**: Suporte a teclado e navegação por voz
 - **Performance**: Carregamento rápido e animações suaves
+- **Notificações**: Sistema de notificações em tempo real
 
 ## 📱 Como Instalar
 
-### No Desktop (Chrome/Edge):
+### Método 1 - Menu da Aplicação:
 1. Abra a calculadora no navegador
-2. Clique no ícone de instalação na barra de endereços
-3. Ou use o menu do navegador → "Instalar aplicativo"
+2. Toque no ícone de menu (☰) no canto superior direito
+3. Selecione "Baixar App"
+4. Siga as instruções específicas para sua plataforma
 
-### No Mobile (Android):
-1. Abra a calculadora no Chrome
-2. Toque no menu (3 pontos) → "Adicionar à tela inicial"
-3. Ou aguarde o prompt de instalação automático
+### Método 2 - Instalação Automática:
+- **Desktop (Chrome/Edge)**: Clique no ícone de instalação na barra de endereços
+- **Mobile (Android)**: Toque no menu (3 pontos) → "Adicionar à tela inicial"
+- **iOS (Safari)**: Toque no botão de compartilhar → "Adicionar à Tela Inicial"
 
-### No iOS (Safari):
-1. Abra a calculadora no Safari
-2. Toque no botão de compartilhar → "Adicionar à Tela Inicial"
+### Instruções Detalhadas por Plataforma:
+
+#### Android:
+1. Toque no menu (3 pontos) ⋮
+2. Selecione "Adicionar à tela inicial"
+3. Toque em "Adicionar"
+
+#### iOS:
+1. Toque no botão de compartilhar ⎋
+2. Selecione "Adicionar à Tela Inicial"
+3. Toque em "Adicionar"
+
+#### Desktop:
+1. Clique no ícone de instalação na barra de endereços
+2. Ou use o menu do navegador → "Instalar aplicativo"
 
 ## 🎯 Como Usar
 
@@ -56,6 +72,8 @@ Uma calculadora simples e funcional desenvolvida como Progressive Web App (PWA) 
 - **Formatação**: Números são formatados automaticamente
 - **Validação**: Prevenção de divisão por zero
 - **Offline**: Funciona sem conexão com a internet
+- **Menu Lateral**: Acesso rápido a configurações e ajuda
+- **Notificações**: Feedback visual para ações importantes
 
 ## 🛠️ Tecnologias Utilizadas
 
